@@ -550,8 +550,8 @@ function group(array, keySelector, valueSelector) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.map((item) => childrenSelector(item)).flat();
 }
 
 
@@ -590,10 +590,21 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
-}
+function swapHeadAndTail(arr) {
+  let newArr = [];
 
+  if (arr.length % 2 === 0) {
+    newArr.push(arr.slice(arr.length / 2));
+    newArr.push(arr.slice(0, arr.length / 2));
+    newArr = newArr.flat();
+  } else {
+    newArr.push(arr.slice(Math.floor(arr.length / 2 + 1)));
+    newArr.push(Math.ceil(arr.length / 2));
+    newArr.push(arr.slice(0, Math.floor(arr.length / 2)));
+    newArr = newArr.flat();
+  }
+  return newArr;
+}
 
 module.exports = {
   findElement,
